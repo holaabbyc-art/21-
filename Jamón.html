@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
+
+    <title>Para Ale 🌻</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Quicksand:wght@600&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+
+        body {
+
+            width: 100vw;
+            height: 100vh;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #29200d 0%,
+                    #17140c 45%,
+                    #0c0c0b 100%
+                );
+
+            font-family: 'Quicksand', sans-serif;
+
+            color: #fffdf2;
+
+            position: relative;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================
+           INSTRUCCIÓN
+        ===================================== */
+
+        .instruccion {
+
+            position: absolute;
+
+            top: 9%;
+
+            width: 100%;
+
+            text-align: center;
+
+            font-size: 1.25rem;
+
+            color: #ffd83d;
+
+            z-index: 50;
+
+            text-shadow:
+                0 0 10px rgba(255,215,0,.5);
+
+            animation:
+                parpadear 2s infinite;
+
+            padding: 0 20px;
+        }
+
+
+        /* =====================================
+           CONTENEDOR DE LA FLOR
+        ===================================== */
+
+        #flor-virtual {
+
+            position: absolute;
+
+            width: 100vw;
+            height: 100vh;
+
+            inset: 0;
+
+            transition:
+                transform 1.4s
+                cubic-bezier(.2,.8,.2,1);
+        }
+
+
+        #flor-virtual.final-state {
+
+            transform:
+                translateY(-65px)
+                scale(.86);
+        }
+
+
+        /* =====================================
+           CONTENEDOR DE PÉTALOS
+        ===================================== */
+
+        #petalos-container {
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            inset: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 10;
+        }
+
+
+        /* =====================================
+           PÉTALOS
+        ===================================== */
+
+        .petalo {
+
+            position: absolute;
+
+            width: 92px;
+            height: 185px;
+
+            left: 50%;
+            bottom: 50%;
+
+            margin-left: -46px;
+
+            background:
+                linear-gradient(
+                    to top,
+                    #dc9300 0%,
+                    #f8b900 45%,
+                    #ffdc35 100%
+                );
+
+            border-radius:
+                50% 50% 22% 22%;
+
+            transform-origin:
+                bottom center;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: flex-start;
+
+            padding-top: 23px;
+
+            box-shadow:
+                0 0 12px rgba(255,210,0,.18);
+
+            opacity: 0;
+
+            z-index: 10;
+
+            animation:
+                nacerPetalo
+                .75s
+                cubic-bezier(.175,.885,.32,1.275)
+                forwards;
+        }
+
+
+        /* =====================================
+           TEXTO DE LOS PÉTALOS
+        ===================================== */
+
+        .texto-petalo {
+
+            width: 82%;
+
+            font-family: 'Caveat', cursive;
+
+            font-size: 1.05rem;
+
+            line-height: 1.05;
+
+            text-align: center;
+
+            color: #4b2c13;
+
+            font-weight: 600;
+
+            text-shadow:
+                0 1px 1px
+                rgba(255,255,255,.35);
+
+            opacity: 0;
+
+            animation:
+                aparecerTexto
+                .7s
+                ease-out
+                .35s
+                forwards;
+
+            pointer-events: none;
+
+            word-wrap: break-word; 
+        }
+
+
+        /* =====================================
+           TALLO DE LA FLOR
+        ===================================== */
+
+        .tallo {
+
+            position: absolute;
+
+            width: 25px;
+            height: 0px;
+
+            left: 50%;
+            top: calc(50% + 50px);
+
+            transform: translateX(-50%);
+
+            background: linear-gradient(
+                to right,
+                #2e6b1e 0%,
+                #4caf50 50%,
+                #2e6b1e 100%
+            );
+
+            border-radius: 0 0 10px 10px;
+
+            z-index: 5;
+
+            box-shadow: 
+                inset 0 0 5px rgba(0,0,0,0.4),
+                0 0 10px rgba(76, 175, 80, 0.3);
+
+            transition: height 1s ease;
+        }
+
+
+        #flor-virtual.final-state .tallo {
+            height: 400px;
+        }
+
+
+        /* =====================================
+           CENTRO DE LA FLOR
+        ===================================== */
+
+        .centro-flor {
+
+            position: absolute;
+
+            width: 118px;
+            height: 118px;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #633e20 0%,
+                    #432a16 55%,
+                    #2b190d 100%
+                );
+
+            border:
+                3px solid #9b681d;
+
+            box-shadow:
+
+                inset
+                0 0 18px
+                rgba(0,0,0,.8),
+
+                0 0 25px
+                rgba(0,0,0,.5);
+
+            z-index: 20;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition:
+                box-shadow .8s ease,
+                transform .8s ease;
+        }
+
+
+        /* =====================================
+           CENTRO CUANDO TERMINA
+        ===================================== */
+
+        .centro-flor.final {
+
+            box-shadow:
+
+                inset
+                0 0 18px
+                rgba(0,0,0,.8),
+
+                0 0 35px
+                rgba(255,215,0,.55);
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.08);
+        }
+
+
+        /* =====================================
+           GIRASOL DEL CENTRO
+        ===================================== */
+
+        .centro-flor::after {
+
+            content: "🌻";
+
+            font-size: 3rem;
+
+            filter:
+                drop-shadow(
+                    0 0 8px
+                    rgba(255,215,0,.35)
+                );
+
+            transition:
+                opacity .6s ease;
+        }
+
+
+        .centro-flor.final::after {
+
+            opacity: .15;
+        }
+
+
+        /* =====================================
+           MENSAJE FINAL
+        ===================================== */
+
+        #mensaje-final {
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: 5%;
+
+            transform:
+                translateX(-50%)
+                translateY(25px);
+
+            width: 88%;
+
+            max-width: 430px;
+
+            text-align: center;
+
+            font-family: 'Caveat', cursive;
+
+            font-size: 1.55rem;
+
+            line-height: 1.15;
+
+            color: #ffd83d;
+
+            text-shadow:
+                0 2px 7px
+                rgba(0,0,0,.9),
+
+                0 0 12px
+                rgba(255,215,0,.25);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s
+                cubic-bezier(.2,.8,.2,1);
+
+            z-index: 60;
+
+            padding: 12px 10px;
+        }
+
+
+        #mensaje-final.visible {
+
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+
+        /* =====================================
+           PEQUEÑA LÍNEA DECORATIVA
+        ===================================== */
+
+        #mensaje-final::before {
+
+            content: "✦";
+
+            display: block;
+
+            font-size: 1.1rem;
+
+            margin-bottom: 5px;
+
+            color: #ffd83d;
+        }
+
+
+        /* =====================================
+           LUCIÉRNAGAS
+        ===================================== */
+
+        .luciernaga {
+
+            position: absolute;
+
+            background: #ffd700;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px 2px #ffd700;
+
+            opacity: 0;
+
+            z-index: 1;
+
+            animation:
+                flotarMagico
+                linear infinite;
+        }
+
+
+        /* =====================================
+           ANIMACIONES
+        ===================================== */
+
+        @keyframes nacerPetalo {
+
+            0% {
+
+                transform:
+                    scale(0)
+                    rotate(var(--rotacion));
+
+                opacity: 0;
+            }
+
+            100% {
+
+                transform:
+                    scale(1)
+                    rotate(var(--rotacion));
+
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes aparecerTexto {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    translateY(8px);
+            }
+
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes parpadear {
+
+            0%,100% {
+
+                opacity: .45;
+            }
+
+            50% {
+
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes flotarMagico {
+
+            0% {
+
+                transform:
+                    translateY(100vh)
+                    scale(0);
+
+                opacity: 0;
+            }
+
+            20% {
+
+                opacity: .8;
+
+                transform:
+                    translateY(80vh)
+                    scale(1);
+            }
+
+            80% {
+
+                opacity: .8;
+            }
+
+            100% {
+
+                transform:
+                    translateY(-10vh)
+                    scale(.5);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =====================================
+           AJUSTE PARA PANTALLAS PEQUEÑAS
+        ===================================== */
+
+        @media (max-height: 700px) {
+
+            .petalo {
+
+                width: 82px;
+                height: 165px;
+
+                margin-left: -41px;
+            }
+
+            .texto-petalo {
+
+                font-size: 0.95rem; 
+            }
+
+            #flor-virtual.final-state {
+
+                transform:
+                    translateY(-45px)
+                    scale(.78);
+            }
+
+            #mensaje-final {
+
+                font-size: 1.4rem;
+
+                bottom: 3%;
+            }
+            
+            .tallo {
+                top: calc(50% + 54px);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         MÚSICA
+         ===================================== -->
+
+    <audio id="musica" loop preload="auto">
+        <source src="flores.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- =====================================
+         INSTRUCCIÓN
+    ===================================== -->
+
+    <div
+        class="instruccion"
+        id="instruccion">
+
+        Toca para armar tu flor 🌻
+
+    </div>
+
+
+    <!-- =====================================
+         FLOR
+    ===================================== -->
+
+    <div id="flor-virtual">
+
+        <!-- TALLO -->
+        <div class="tallo"></div>
+
+        <div id="petalos-container"></div>
+
+        <div
+            class="centro-flor"
+            id="centro-flor">
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================
+         MENSAJE FINAL
+    ===================================== -->
+
+    <div
+        id="mensaje-final">
+
+        Y esta última es porque
+        algún día espero poder
+        dártelas en persona
+      <br><br>
+      Gracias por iluminar mis días,
+        incluso a la distancia
+     <br><br>
+      
+        Te Amo  Ale 🌻💗
+
+    </div>
+
+
+    <script>
+
+
+        /* =====================================
+           FRASES
+        ===================================== */
+
+        const frases = [
+
+            "Porque me haces sonreír",
+
+            "Porque elegirme",
+
+            "Por tu linda forma de ser",
+
+            "Porque eres especial",
+
+            "Por nuestras pláticas",
+
+            "Por lo que aún nos falta vivir",
+
+            "Porque me gusta escucharte",
+
+            "Porque me haces feliz"
+
+        ];
+
+
+        /* =====================================
+           ELEMENTOS
+        ===================================== */
+
+        let clic = 0;
+
+        const totalPetalos =
+            frases.length;
+
+
+        const instruccion =
+            document.getElementById(
+                'instruccion'
+            );
+
+
+        const flor =
+            document.getElementById(
+                'flor-virtual'
+            );
+
+
+        const centro =
+            document.getElementById(
+                'centro-flor'
+            );
+
+
+        const petalosContainer =
+            document.getElementById(
+                'petalos-container'
+            );
+
+
+        const mensaje =
+            document.getElementById(
+                'mensaje-final'
+            );
+
+
+        /* =====================================
+           MÚSICA
+           ===================================== */
+
+        const musica =
+            document.getElementById(
+                'musica'
+            );
+
+
+        /* =====================================
+           LUCIÉRNAGAS
+        ===================================== */
+
+        setInterval(() => {
+
+            const luciernaga =
+                document.createElement(
+                    'div'
+                );
+
+
+            luciernaga.classList.add(
+                'luciernaga'
+            );
+
+
+            const size =
+                Math.random() * 4 + 2;
+
+
+            luciernaga.style.width =
+                `${size}px`;
+
+
+            luciernaga.style.height =
+                `${size}px`;
+
+
+            luciernaga.style.left =
+                `${Math.random() * 100}vw`;
+
+
+            luciernaga.style.animationDuration =
+                `${Math.random() * 5 + 5}s`;
+
+
+            document.body.appendChild(
+                luciernaga
+            );
+
+
+            setTimeout(() => {
+
+                luciernaga.remove();
+
+            }, 10000);
+
+
+        }, 450);
+
+
+        /* =====================================
+           CLICS
+        ===================================== */
+
+        document.body.addEventListener(
+            'click',
+            () => {
+
+
+                /*
+                Si ya terminó,
+                no hacemos nada.
+                */
+
+                if (clic > totalPetalos) {
+
+                    return;
+
+                }
+
+
+                /*
+                Primer toque
+                */
+
+                if (clic === 0) {
+
+                    instruccion.style.opacity =
+                        "0";
+
+
+                    /* INICIAR MÚSICA */
+
+                    musica.play().catch(error => {
+
+                        console.log(
+                            "No se pudo reproducir la música:",
+                            error
+                        );
+
+                    });
+
+
+                    setTimeout(() => {
+
+                        instruccion.style.display =
+                            "none";
+
+                    }, 400);
+
+                }
+
+
+                /*
+                Crear pétalo
+                */
+
+                if (clic < totalPetalos) {
+
+                    agregarPetalo(clic);
+
+                    clic++;
+
+                }
+
+
+                /*
+                Último pétalo
+                */
+
+                if (clic === totalPetalos) {
+
+                    setTimeout(
+                        finalizarFlor,
+                        1400
+                    );
+
+                    clic++;
+                }
+
+            }
+        );
+
+
+        /* =====================================
+           CREAR PÉTALO
+        ===================================== */
+
+        function agregarPetalo(/** @type {number} */ index) {
+
+
+            const angulo =
+                index *
+                (360 / totalPetalos);
+
+
+            const petalo =
+                document.createElement(
+                    'div'
+                );
+
+
+            petalo.classList.add(
+                'petalo'
+            );
+
+
+            petalo.style.setProperty(
+                '--rotacion',
+                `${angulo}deg`
+            );
+
+
+            const texto =
+                document.createElement(
+                    'span'
+                );
+
+
+            texto.classList.add(
+                'texto-petalo'
+            );
+
+
+            texto.textContent =
+                frases[index];
+
+
+            let rotacionTexto = -angulo;
+
+
+            if (angulo > 90 && angulo < 270) {
+
+            }
+
+
+            texto.style.transform =
+                `rotate(${rotacionTexto}deg)`;
+
+
+            petalo.appendChild(
+                texto
+            );
+
+
+            petalosContainer.appendChild(
+                petalo
+            );
+
+        }
+
+
+        /* =====================================
+           FINAL
+        ===================================== */
+
+        function finalizarFlor() {
+
+
+            /*
+            Subimos la flor
+            */
+
+            flor.classList.add(
+                'final-state'
+            );
+
+
+            /*
+            Resaltamos el centro
+            */
+
+            centro.classList.add(
+                'final'
+            );
+
+
+            /*
+            Mostramos mensaje
+            */
+
+            setTimeout(() => {
+
+                mensaje.classList.add(
+                    'visible'
+                );
+
+            }, 650);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
